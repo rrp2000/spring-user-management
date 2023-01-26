@@ -3,6 +3,7 @@ package com.example.saveUser.controller;
 import com.example.saveUser.model.UserModel;
 import com.example.saveUser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public Optional<UserModel> getUserById(@PathVariable int id){
+    public Optional<UserModel> getUserById(@PathVariable String id){
         return userService.getUserById(id);
     }
 
@@ -28,4 +29,16 @@ public class UserController {
     public UserModel createUser(@RequestBody UserModel userData){
         return userService.createUser(userData);
     }
+
+    @PutMapping("/user/{id}")
+    public String updateUser(@RequestBody UserModel updateData, @PathVariable String id){
+        return userService.updateUser(id, updateData);
+    }
+
+    @PutMapping("replaceUser/{userName}")
+    public ResponseEntity<?> replaceUserName(@PathVariable String userName){
+        return userService.replaceUserName(userName);
+    }
+
+
 }
