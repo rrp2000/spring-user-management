@@ -70,4 +70,20 @@ public class UserService {
         }
    }
 
+
+   public ResponseEntity<?> deleteByUserName(String userName){
+        Optional<UserModel> userOptional = userRepository.findByUserName(userName);
+        if(userOptional.isPresent()){
+            UserModel user = userOptional.get();
+            try{
+                userRepository.deleteById(user.getId());
+                return new ResponseEntity<>("Deleted successfully",HttpStatus.OK);
+            }catch(Exception e){
+                return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }else{
+            return new ResponseEntity<>("No such data available with "+userName,HttpStatus.NOT_FOUND);
+        }
+   }
+
 }

@@ -40,5 +40,10 @@ public class UserController {
         return userService.replaceUserName(userName);
     }
 
+    @DeleteMapping("/deleteUser/{userName}")
+    public ResponseEntity<?> deleteByUserName(@PathVariable String userName){
+        return userService.deleteByUserName(userName);
+    }
+
 
 }
