@@ -11,4 +11,11 @@ import java.util.Optional;
 public interface UserRepository extends MongoRepository<UserModel,String> {
     @Query
     Optional<UserModel> findByUserName(String userName);
+
+    @Query
+    Optional<UserModel> findByEmail(String email);
+
+//    @Query
+//    Optional<UserModel> findByMobileNumber(String mobile_number);
+
 }

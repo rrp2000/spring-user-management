@@ -1,5 +1,6 @@
 package com.example.saveUser.model;
 
+import jakarta.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,11 +10,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserModel {
     @Id
     private String id;
+    @NotBlank(message = "User Name is required.")
     private String userName;
+    @NotBlank(message = "Full Name is required.")
     private String full_name;
+    @NotBlank(message = "Email is required.")
+    @Email
     private String email;
+    @NotBlank(message = "Address is required.")
     private String address;
+    @NotBlank(message = "Mobile Number is required.")
+    @Size(min = 10,max = 10,message = "Mobile Number should be of 10 digits.")
     private String mobile_number;
+    @NotBlank(message = "Organization is required.")
     private String current_organizations;
 
     public UserModel(String id, String userName, String full_name, String email, String address, String mobile_number, String current_organizations) {

@@ -2,10 +2,8 @@ package com.example.saveUser.service;
 
 import com.example.saveUser.model.UserModel;
 import com.example.saveUser.repository.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +17,31 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     public List<UserModel> getUsers(){
         return userRepository.findAll();
     }
 
-    public UserModel createUser(UserModel user){
+    public ResponseEntity<?> createUser(UserModel user){
+        Optional<UserModel> userWithEmail = userRepository.findByEmail(user.getEmail());
+        if(userWithEmail.isPresent()){
+            return new ResponseEntity<>("Email already exists. Please give another one.",HttpStatus.BAD_REQUEST);
+        }
+//        Optional<UserModel> userWithMobile = userRepository.findByMobileNumber(user.getMobile_number());
+//        if(userWithEmail.isPresent()){
+//            return new ResponseEntity<>("Mobile number already exists. Please give another one.",HttpStatus.BAD_REQUEST);
+//        }
         UserModel res = userRepository.save(user);
-        return res;
+        return new ResponseEntity<>(res,HttpStatus.OK);
     }
 
-    public Optional<UserModel> getUserById(String id){
-        return userRepository.findById(id);
+    public ResponseEntity<?> getUserById(String id){
+        Optional<UserModel> userOptional = userRepository.findById(id);
+        if(!userOptional.isPresent()){
+            return new ResponseEntity<>("No such User exist with id: "+id,HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(userOptional.get(),HttpStatus.OK);
+        }
     }
 
    public String updateUser(String id, UserModel updateData){
