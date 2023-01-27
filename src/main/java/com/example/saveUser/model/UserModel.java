@@ -13,7 +13,7 @@ public class UserModel {
     @NotBlank(message = "User Name is required.")
     private String userName;
     @NotBlank(message = "Full Name is required.")
-    private String full_name;
+    private String fullName;
     @NotBlank(message = "Email is required.")
     @Email
     private String email;
@@ -21,18 +21,18 @@ public class UserModel {
     private String address;
     @NotBlank(message = "Mobile Number is required.")
     @Size(min = 10,max = 10,message = "Mobile Number should be of 10 digits.")
-    private String mobile_number;
+    private String mobileNumber;
     @NotBlank(message = "Organization is required.")
-    private String current_organizations;
+    private String currentOrganizations;
 
-    public UserModel(String id, String userName, String full_name, String email, String address, String mobile_number, String current_organizations) {
+    public UserModel(String id, String userName, String fullName, String email, String address, String mobileNumber, String currentOrganizations) {
         this.id = id;
         this.userName = userName;
-        this.full_name = full_name;
+        this.fullName = fullName;
         this.email = email;
         this.address = address;
-        this.mobile_number = mobile_number;
-        this.current_organizations = current_organizations;
+        this.mobileNumber = mobileNumber;
+        this.currentOrganizations = currentOrganizations;
     }
 
     public String getId() {
@@ -50,12 +50,12 @@ public class UserModel {
         this.userName = userName;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -74,19 +74,19 @@ public class UserModel {
         this.address = address;
     }
 
-    public String getMobile_number() {
-        return mobile_number;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setMobile_number(String mobile_number) {
-        this.mobile_number = mobile_number;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getCurrent_organizations() {
-        return current_organizations;
+    public String getCurrentOrganizations() {
+        return currentOrganizations;
     }
 
-    public void setCurrent_organizations(String current_organizations) {
-        this.current_organizations = current_organizations;
+    public void setCurrentOrganizations(String currentOrganizations) {
+        this.currentOrganizations = currentOrganizations;
     }
 }

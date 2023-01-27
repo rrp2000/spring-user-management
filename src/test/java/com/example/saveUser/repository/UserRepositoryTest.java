@@ -33,7 +33,7 @@ class UserRepositoryTest {
         System.out.println("First");
         assertThat(getUser.get().getUserName()).isEqualTo(newUser.getUserName());
         System.out.println("Second");
-        assertThat(getUser.get().getFull_name()).isEqualTo(newUser.getFull_name());
+        assertThat(getUser.get().getFullName()).isEqualTo(newUser.getFullName());
         System.out.println("Third");
         userRepository.delete(newUser);
     }

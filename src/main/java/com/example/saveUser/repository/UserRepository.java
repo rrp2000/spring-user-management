@@ -15,7 +15,7 @@ public interface UserRepository extends MongoRepository<UserModel,String> {
     @Query
     Optional<UserModel> findByEmail(String email);
 
-//    @Query
-//    Optional<UserModel> findByMobileNumber(String mobile_number);
+    @Query
+    Optional<UserModel> findByMobileNumber(String mobileNumber);
 
 }

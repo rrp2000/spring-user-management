@@ -1,5 +1,6 @@
 package com.example.saveUser.service;
 
+import com.example.saveUser.exception.UserException;
 import com.example.saveUser.model.UserModel;
 import com.example.saveUser.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserException userException;
+
 
     public List<UserModel> getUsers(){
         return userRepository.findAll();
@@ -27,10 +31,10 @@ public class UserService {
         if(userWithEmail.isPresent()){
             return new ResponseEntity<>("Email already exists. Please give another one.",HttpStatus.BAD_REQUEST);
         }
-//        Optional<UserModel> userWithMobile = userRepository.findByMobileNumber(user.getMobile_number());
-//        if(userWithEmail.isPresent()){
-//            return new ResponseEntity<>("Mobile number already exists. Please give another one.",HttpStatus.BAD_REQUEST);
-//        }
+        Optional<UserModel> userWithMobile = userRepository.findByMobileNumber(user.getMobileNumber());
+        if(userWithMobile.isPresent()){
+            return new ResponseEntity<>("Mobile number already exists. Please give another one.",HttpStatus.BAD_REQUEST);
+        }
         UserModel res = userRepository.save(user);
         return new ResponseEntity<>(res,HttpStatus.OK);
     }
@@ -44,16 +48,17 @@ public class UserService {
         }
     }
 
+
    public String updateUser(String id, UserModel updateData){
         Optional<UserModel> userOptional = userRepository.findById(id);
         if(userOptional.isPresent()){
             UserModel oldUser = userOptional.get();
             oldUser.setUserName(updateData.getUserName()!=null?updateData.getUserName(): oldUser.getUserName());
-            oldUser.setFull_name(updateData.getFull_name()!=null?updateData.getFull_name(): oldUser.getFull_name());
+            oldUser.setFullName(updateData.getFullName()!=null?updateData.getFullName(): oldUser.getFullName());
             oldUser.setEmail(updateData.getEmail()!=null?updateData.getEmail():oldUser.getEmail());
             oldUser.setAddress(updateData.getAddress()!=null?updateData.getAddress():oldUser.getAddress());
-            oldUser.setMobile_number(updateData.getMobile_number()!=null?updateData.getMobile_number(): oldUser.getMobile_number());
-            oldUser.setCurrent_organizations(updateData.getCurrent_organizations()!=null?updateData.getCurrent_organizations():oldUser.getCurrent_organizations());
+            oldUser.setMobileNumber(updateData.getMobileNumber()!=null?updateData.getMobileNumber(): oldUser.getMobileNumber());
+            oldUser.setCurrentOrganizations(updateData.getCurrentOrganizations()!=null?updateData.getCurrentOrganizations():oldUser.getCurrentOrganizations());
             userRepository.save(oldUser);
             return "Updated successfully";
         }else{
@@ -65,7 +70,7 @@ public class UserService {
         Optional<UserModel> userOptional = userRepository.findByUserName(userName);
         if(userOptional.isPresent()) {
             UserModel user = userOptional.get();
-            String fullName = user.getFull_name();
+            String fullName = user.getFullName();
             char specialChars[] = {'@','#','$','%','&','*'};
             for(int i = 0;i<fullName.length();i++){
                 if(fullName.charAt(i)=='a' ||fullName.charAt(i)=='e' ||fullName.charAt(i)=='i' ||fullName.charAt(i)=='o' ||fullName.charAt(i)=='u'){
@@ -74,7 +79,7 @@ public class UserService {
                     fullName = fullName.substring(0,i)+specialChars[index]+fullName.substring(i+1);
                 }
             }
-            user.setFull_name(fullName);
+            user.setFullName(fullName);
             userRepository.save(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }else{
