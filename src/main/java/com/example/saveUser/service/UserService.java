@@ -49,7 +49,7 @@ public class UserService {
     }
 
 
-   public String updateUser(String id, UserModel updateData){
+   public ResponseEntity<?> updateUser(String id, UserModel updateData){
         Optional<UserModel> userOptional = userRepository.findById(id);
         if(userOptional.isPresent()){
             UserModel oldUser = userOptional.get();
@@ -60,9 +60,9 @@ public class UserService {
             oldUser.setMobileNumber(updateData.getMobileNumber()!=null?updateData.getMobileNumber(): oldUser.getMobileNumber());
             oldUser.setCurrentOrganizations(updateData.getCurrentOrganizations()!=null?updateData.getCurrentOrganizations():oldUser.getCurrentOrganizations());
             userRepository.save(oldUser);
-            return "Updated successfully";
+            return new ResponseEntity<>(oldUser,HttpStatus.OK);
         }else{
-            return "No such user with this id";
+            return new ResponseEntity<>("No such user with this id",HttpStatus.NOT_FOUND);
         }
    }
 
