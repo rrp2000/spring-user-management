@@ -36,7 +36,7 @@ public class UserService {
             return new ResponseEntity<>("Mobile number already exists. Please give another one.",HttpStatus.BAD_REQUEST);
         }
         UserModel res = userRepository.save(user);
-        return new ResponseEntity<>(res,HttpStatus.OK);
+        return new ResponseEntity<>(res,HttpStatus.CREATED);
     }
 
     public ResponseEntity<?> getUserById(String id){
