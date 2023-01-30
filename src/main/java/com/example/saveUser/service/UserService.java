@@ -22,8 +22,8 @@ public class UserService {
     private UserException userException;
 
 
-    public List<UserModel> getUsers(){
-        return userRepository.findAll();
+    public ResponseEntity<List<UserModel>> getUsers(){
+        return new ResponseEntity<>(userRepository.findAll(),HttpStatus.OK);
     }
 
     public ResponseEntity<?> createUser(UserModel user){

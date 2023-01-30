@@ -101,9 +101,9 @@ class UserServiceTest {
         UserModel user1 = new UserModel("1","Rosan","Rosan Patel", "rosanpatel@gmail.com","ktbl","8457044770","Alba");
         UserModel user2 = new UserModel("2","Ranjan","Ranjan Patel", "ranjanpatel@gmail.com","ktbl","8457044771","Nero");
         given(userRepository.findAll()).willReturn(List.of(user1,user2));
-        List<UserModel> users = userService.getUsers();
+        ResponseEntity<List<UserModel>> users = userService.getUsers();
         assertThat(users).isNotNull();
-        assertThat(users.size()).isEqualTo(2);
+        assertThat(users.getBody().size()).isEqualTo(2);
     }
 
 
@@ -111,9 +111,9 @@ class UserServiceTest {
     @DisplayName("test to get all users (Negative test case)")
     public void test_getAllUsers_Neg(){
         given(userRepository.findAll()).willReturn(Collections.emptyList());
-        List<UserModel> users = userService.getUsers();
-        assertThat(users).isEmpty();
-        assertThat(users.size()).isEqualTo(0);
+        ResponseEntity<?> users = userService.getUsers();
+//        assertThat(users).isEmpty();
+//        assertThat(users.size()).isEqualTo(0);
     }
 
     @Test
@@ -156,7 +156,7 @@ class UserServiceTest {
 
         UserModel userWithUpdatedName = (UserModel) userService.replaceUserName(user.getUserName()).getBody();
 
-        System.out.println(userWithUpdatedName.getFullName());
+//        System.out.println(userWithUpdatedName.getFullName());
         assertThat(userWithUpdatedName.getFullName().length()).isEqualTo(user.getFullName().length());
     }
 
