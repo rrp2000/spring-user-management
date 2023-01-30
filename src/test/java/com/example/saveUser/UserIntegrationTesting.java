@@ -1,13 +1,16 @@
 package com.example.saveUser;
 
 import com.example.saveUser.model.UserModel;
+import com.example.saveUser.service.UserService;
 import org.apache.catalina.User;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
@@ -31,6 +34,9 @@ public class UserIntegrationTesting {
 
     @Autowired
     private WebClient.Builder webTestClient;
+
+//    @MockBean
+//    private UserService userService;
 
     TestRestTemplate restTemplate = new TestRestTemplate();
 
