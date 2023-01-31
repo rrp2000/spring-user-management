@@ -3,6 +3,7 @@ package com.example.saveUser.service;
 import com.example.saveUser.exception.UserException;
 import com.example.saveUser.model.UserModel;
 import com.example.saveUser.repository.UserRepository;
+import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,13 @@ public class UserService {
     }
 
     public ResponseEntity<?> createUser(UserModel user){
-        logger.info("Checking for existing email");
+        logger.info("Checking for existing userName");
+        Optional<UserModel> userWithUserName = userRepository.findByUserName(user.getUserName());
+        if(userWithUserName.isPresent()) {
+            logger.error("UserName already exists");
+            return new ResponseEntity<>("User already exists. Please give another one.", HttpStatus.BAD_REQUEST);
+        }
+        logger.info("checking for existing email");
         Optional<UserModel> userWithEmail = userRepository.findByEmail(user.getEmail());
         if(userWithEmail.isPresent()){
             logger.error("Email already exists");

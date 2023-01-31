@@ -2,6 +2,7 @@ package com.example.saveUser.service;
 
 import com.example.saveUser.model.UserModel;
 import com.example.saveUser.repository.UserRepository;
+import com.example.saveUser.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
