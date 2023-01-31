@@ -21,34 +21,37 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<?> getAllUsers(){
-        logger.trace("getting all the users");
+        logger.info("getting all the users");
         return userService.getUsers();
     }
 
     @GetMapping("/users/{id}")
     public Object getUserById(@PathVariable String id){
-        logger.trace("getting a user by id");
-
+        logger.info("getting a user by id");
         return userService.getUserById(id);
     }
 
     @PostMapping("/user")
     public ResponseEntity<?> createUser(@RequestBody @Valid UserModel userData){
+        logger.info("Creating a new user");
         return userService.createUser(userData);
     }
 
     @PutMapping("/user/{id}")
     public ResponseEntity<?> updateUser(@RequestBody UserModel updateData, @PathVariable String id){
+        logger.info("Updating a user");
         return userService.updateUser(id, updateData);
     }
 
     @PutMapping("replaceUser/{userName}")
     public ResponseEntity<?> replaceUserName(@PathVariable String userName){
+        logger.info("Replacing a user name");
         return userService.replaceUserName(userName);
     }
 
     @DeleteMapping("/deleteUser/{userName}")
     public ResponseEntity<?> deleteByUserName(@PathVariable String userName){
+        logger.info("Deleting a user");
         return userService.deleteByUserName(userName);
     }
 
